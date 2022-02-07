@@ -1,10 +1,13 @@
-import './App.css';
+import "./App.css";
+import { Routes, Route, Switch } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Henry Pokemon</h1>
-    </div>
+    <Routes>
+      <div className="App">
+        <h1>Henry Pokemon</h1>
+      </div>
+    </Routes>
   );
 }
 

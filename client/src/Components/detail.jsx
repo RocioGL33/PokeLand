@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPokemonDetail } from "../Actions";
+import NavBar from "./navBar";
 
 export default function Detail() {
   const dispatch = useDispatch();
@@ -13,15 +14,17 @@ export default function Detail() {
   }, []);
 
   const detail = useSelector((store) => store.pokemonDetail);
-  console.log("data[0]", detail);
+
   return (
     <div>
+      <NavBar />
       <img src={detail.img} alt="img not found" />
 
       <h2>{detail.name}</h2>
 
       {detail && detail.types?.map((t) => <p>{t.name}</p>)}
       <div>
+        <h4> ID: {detail.id}</h4>
         <h4> HP: {detail.hp}</h4>
         <h4> Height: {detail.height}</h4>
         <h4> Weight: {detail.weight}</h4>

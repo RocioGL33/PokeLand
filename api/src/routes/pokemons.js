@@ -4,37 +4,38 @@ const { Pokemon, Type } = require("../db.js");
 
 const router = Router();
 
+// Traigo todos los pokemons (tanto API como DB) y filtro por 'name';
 router.get("/", async (req, res) => {
   const { name } = req.query;
-
-  var queryPokes = [];
-  for (let i = 1; i <= 40; i++) {
-    queryPokes.push(axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`));
+  // Traigo de a uno los Pokemon y los guardo en allPokes;
+  var allPokes = [];
+  for (let i = 1; i <= 50; i++) {
+    allPokes.push(axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`));
   }
-
+  // Traigo todos los pokemons desde API en caso que no se pase ningun name por query;
   if (!name) {
     return (
-      Promise.all(queryPokes)
+      Promise.all(allPokes)
         .then((pokemons) => pokemons.map((p) => p.data))
-        .then((data) =>
-          data.map((e) => {
+        .then((p) =>
+          p.map((data) => {
             return {
-              id: e.id,
-              name: e.name,
-              img: e.sprites.other["official-artwork"].front_default,
-              types: e.types.map((t) => t.type.name),
-              hp: e.stats[0].base_stat,
-              attack: e.stats[1].base_stat,
-              defense: e.stats[2].base_stat,
-              speed: e.stats[5].base_stat,
-              height: e.height,
-              weight: e.weight,
+              id: data.id,
+              name: data.name,
+              img: data.sprites.other["official-artwork"].front_default,
+              types: data.types.map((t) => t.type.name),
+              hp: data.stats[0].base_stat,
+              attack: data.stats[1].base_stat,
+              defense: data.stats[2].base_stat,
+              speed: data.stats[5].base_stat,
+              height: data.height,
+              weight: data.weight,
             };
           })
         )
         // Busco en base de datos y concateno con API para devolver todo;
-        .then(async (apiPokemons) =>
-          apiPokemons.concat(
+        .then(async (pokemons) =>
+          pokemons.concat(
             await Pokemon.findAll({
               include: {
                 model: Type,
@@ -46,7 +47,7 @@ router.get("/", async (req, res) => {
             })
           )
         )
-        .then((allPokemons) => res.status(200).send(allPokemons))
+        .then((pokemons) => res.status(200).send(pokemons))
     );
   } else {
     try {
@@ -67,10 +68,10 @@ router.get("/", async (req, res) => {
           height: pokeInDb.height,
           weight: pokeInDb.weight,
           img: pokeInDb.img,
-          types: pokeInDb.type.map((e) => e.type.name),
+          types: pokeInDb.types.map((e) => e.name),
         };
 
-        return res.status(200).send(pokeFinded);
+        return res.status(200).json(pokeFinded);
       } else {
         let pokeInApi = await axios
           .get(`https://pokeapi.co/api/v2/pokemon/${name}`)
@@ -113,7 +114,7 @@ router.get("/:id", async (req, res) => {
         weight: pokeIdDb.weight,
         height: pokeIdDb.height,
         img: pokeIdDb.img,
-        type: pokeIdDb.type.map((e) => e.dataValues.name),
+        types: pokeIdDb.types.map((e) => e.dataValues.name),
       };
       res.status(200).send(pokeDb);
     } else {
@@ -145,30 +146,29 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const { name, hp, attack, defense, speed, height, weight, types, img } =
     req.body;
-  //console.log(body);
+
+  console.log(types);
   try {
-    var createdPoke = await Pokemon.create({
-      name,
-      hp,
-      attack,
-      defense,
-      speed,
-      height,
-      weight,
-      img,
+    var creatingPoke = await Pokemon.create({
+      name: name,
+      hp: hp,
+      attack: attack,
+      defense: defense,
+      speed: speed,
+      height: height,
+      weight: weight,
+      img: img,
       created: true,
     });
 
     types.map(async (e) => {
       // encontrar lo que quiero o lo creo, si lo encuentro lo pasa por la variable t, y la segunda si lo encontro o lo creo
-      let [type, created] = await Type.findAll({
-        where: { name: e },
-      });
+      let [t, created] = await Type.findOrCreate({ where: { name: e } });
       // agrego al pokemon el types
-      createdPoke.addType(type);
+      creatingPoke.addType(t);
     });
 
-    res.status(200).send(createdPoke);
+    res.status(200).send(creatingPoke);
   } catch (error) {
     res.status(500).send(error.message);
   }

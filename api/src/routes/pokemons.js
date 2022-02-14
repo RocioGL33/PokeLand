@@ -23,7 +23,11 @@ router.get("/", async (req, res) => {
               id: data.id,
               name: data.name,
               img: data.sprites.other["official-artwork"].front_default,
-              types: data.types.map((t) => t.type.name),
+              types: data.types.map((t) => {
+                return {
+                  name: t.type.name,
+                };
+              }),
               hp: data.stats[0].base_stat,
               attack: data.stats[1].base_stat,
               defense: data.stats[2].base_stat,
@@ -47,6 +51,7 @@ router.get("/", async (req, res) => {
             })
           )
         )
+
         .then((pokemons) => res.status(200).send(pokemons))
     );
   } else {
@@ -56,6 +61,7 @@ router.get("/", async (req, res) => {
         where: { name: name },
         include: Type,
       });
+      let result = [];
 
       if (pokeInDb) {
         let pokeFinded = {
@@ -71,12 +77,14 @@ router.get("/", async (req, res) => {
           types: pokeInDb.types.map((e) => e.name),
         };
 
-        return res.status(200).json(pokeFinded);
+        result.push(pokeFinded);
+
+        return res.status(200).json(result);
       } else {
         let pokeInApi = await axios
           .get(`https://pokeapi.co/api/v2/pokemon/${name}`)
           .then((res) => res.data);
-
+        let result = [];
         let pokeName = {
           id: pokeInApi.id,
           name: pokeInApi.name,
@@ -89,8 +97,8 @@ router.get("/", async (req, res) => {
           img: pokeInApi.sprites.other["official-artwork"].front_default,
           types: pokeInApi.types.map((e) => e.type.name),
         };
-
-        res.status(200).send(pokeName);
+        result.push(pokeName);
+        res.status(200).send(result);
       }
     } catch (e) {
       res.status(404).send(e.message);
@@ -162,8 +170,9 @@ router.post("/", async (req, res) => {
     });
 
     types.map(async (e) => {
+      console.log(e);
       // encontrar lo que quiero o lo creo, si lo encuentro lo pasa por la variable t, y la segunda si lo encontro o lo creo
-      let [t, created] = await Type.findOrCreate({ where: { name: e } });
+      let [t, created] = await Type.findOrCreate({ where: { name: e.name } });
       // agrego al pokemon el types
       creatingPoke.addType(t);
     });

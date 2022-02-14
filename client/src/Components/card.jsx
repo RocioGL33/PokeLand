@@ -7,8 +7,8 @@ export default function Card({ id, name, img, types }) {
       <Link to={`/pokemons/${id}`}>
         <h2>{name}</h2>
 
-        {types?.map((t) => (
-          <h3>{t}</h3>
+        {types?.map((type) => (
+          <h3>{type.name}</h3>
         ))}
         <img src={img} alt="img not found" />
       </Link>

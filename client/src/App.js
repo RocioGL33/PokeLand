@@ -1,9 +1,10 @@
 import "./App.css";
+import "normalize.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LandingPage from "./Components/landingPage";
-import Home from "./Components/home";
-import Detail from "./Components/detail";
-import PokeCreated from "./Components/pokeCreated";
+import LandingPage from "./Components/LandingPage/landingPage";
+import Home from "./Components/Home/home";
+import Detail from "./Components/Detail/detail";
+import PokeCreated from "./Components/PokeCreated/pokeCreated";
 
 function App() {
   return (

@@ -1,0 +1,17 @@
+
+.container-numbers {
+   
+    position: relative;
+    top: 30px;
+   
+}
+
+.number-buttons {
+    text-align: center;
+    margin: 5px;
+    width: 30px;
+    height: 30px;
+    color: #f8f8f8;
+    background-color: black;
+}
+

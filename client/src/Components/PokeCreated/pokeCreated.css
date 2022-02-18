@@ -1,0 +1,19 @@
+.container-form {
+    display: flex;
+    margin-top: 90px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.container-button-create {
+    position: relative;
+}
+
+.button-create, .button-home{
+    background-color: black;
+    color: #f8f8f8;
+}
+
+

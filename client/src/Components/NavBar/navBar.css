@@ -1,0 +1,20 @@
+.container-gf {
+    box-sizing: content-box;
+    background-color: red;
+    height: 87px;
+    width: 100%;
+}
+
+.container-nav-father {
+    display: flex;
+    justify-content: space-around;
+    
+}
+
+button, select, input {
+    color: black;
+    background-color: #f8f8f8;
+    margin: 5px;
+    padding: 5px 5px;
+ }
+

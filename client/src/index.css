@@ -1,10 +1,14 @@
+* {
+  font-family: 'Press Start 2P', cursive;
+}
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-image: url('../../client/src/utils/homee.png');
+  background-size: auto;
+  background-attachment: fixed;
+
+  background-repeat: no-repeat;
+  text-align: center;
 }
 
 code {

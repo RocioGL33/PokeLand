@@ -1,0 +1,65 @@
+.landing-page {
+    background-image: url('../../utils/backgoundPokes.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    height: 100vh;
+}
+
+.container-h1 {
+    
+    color:#F8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 200px
+
+}
+
+.welcome {
+    color: #F8f8f8;
+}
+
+.container-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.button {
+ 
+ position: relative;
+ padding: 10px 40px;
+ margin: 0px 10px 10px 0px;
+ float: left;
+ border-radius: 3px;
+ font-size: 20px;
+ color: #7aa470;
+ text-decoration: none;
+ background-color: #f8f8f8;
+ border: none;
+ border-bottom: 5px solid #aeda65;
+ text-shadow: 0px -2px #7aa470;
+ -webkit-transition: all 0.1s;
+ transition: all 0.1s;
+ 
+}
+
+/*afecta todos los botones*/
+
+.button:hover, .button:active {
+    -webkit-transform: translate(0px,5px);
+    -ms-transform: translate(0px,5px);
+    transform: translate(0px,5px);
+    border-bottom: 1px solid #2ecc71;
+   }
+
+.footer {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: #F8f8f8;
+    font-size: 13px;
+    top: 820px;
+}

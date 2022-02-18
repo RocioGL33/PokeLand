@@ -4,19 +4,22 @@ const { Pokemon, Type } = require("../db.js");
 
 const router = Router();
 
-// Traigo todos los pokemons (tanto API como DB) y filtro por 'name';
+// Ruta donde traigo todos los pokemons (tanto API como DB) y filtro por 'name';
 router.get("/", async (req, res) => {
   const { name } = req.query;
-  // Traigo de a uno los Pokemon y los guardo en allPokes;
+  // Traigo de a uno los Pokemon y los guardo en el array allPokes;
   var allPokes = [];
-  for (let i = 1; i <= 50; i++) {
+
+  for (let i = 1; i <= 40; i++) {
     allPokes.push(axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`));
   }
+  //console.log(allPokes);
   // Traigo todos los pokemons desde API en caso que no se pase ningun name por query;
   if (!name) {
     return (
       Promise.all(allPokes)
-        .then((pokemons) => pokemons.map((p) => p.data))
+
+        .then((pokemons) => pokemons.map((pokemon) => pokemon.data))
         .then((p) =>
           p.map((data) => {
             return {
@@ -37,6 +40,7 @@ router.get("/", async (req, res) => {
             };
           })
         )
+
         // Busco en base de datos y concateno con API para devolver todo;
         .then(async (pokemons) =>
           pokemons.concat(
@@ -61,6 +65,7 @@ router.get("/", async (req, res) => {
         where: { name: name },
         include: Type,
       });
+      // Array donde voy a guardar mi resultado
       let result = [];
 
       if (pokeInDb) {
@@ -158,14 +163,14 @@ router.post("/", async (req, res) => {
   console.log(types);
   try {
     var creatingPoke = await Pokemon.create({
-      name: name,
-      hp: hp,
-      attack: attack,
-      defense: defense,
-      speed: speed,
-      height: height,
-      weight: weight,
-      img: img,
+      name,
+      hp,
+      attack,
+      defense,
+      speed,
+      height,
+      weight,
+      img,
       created: true,
     });
 

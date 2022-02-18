@@ -29,7 +29,10 @@ export default function reducer(state = initialState, action) {
           : allPokemons.filter((e) =>
               e.types.find((el) => el.name === action.payload)
             );
-
+      if (typeFilter.length <= 0) {
+        alert("Sorry, no pokemon found with this type");
+        typeFilter = allPokemons;
+      }
       return {
         ...state,
         pokemons: typeFilter,
@@ -43,50 +46,58 @@ export default function reducer(state = initialState, action) {
         ...state,
         pokemons: origin,
       };
-    case "ORDER_BY_NAME":
-      let sortedPokes =
-        action.payload === "ASC"
-          ? state.pokemons.sort(function (a, b) {
-              if (a.name > b.name) {
-                return 1;
-              }
-              if (b.name > a.name) {
-                return -1;
-              }
-              return 0;
-            })
-          : state.pokemons.sort(function (a, b) {
-              if (a.name > b.name) {
-                return -1;
-              }
-              if (b.name > a.name) {
-                return 1;
-              }
-              return 0;
-            });
+    case "ORDER_BY":
+      let sortedPokes;
+      switch (action.payload) {
+        case "ASC":
+          sortedPokes = state.pokemons.sort(function (a, b) {
+            if (a.name > b.name) {
+              return 1;
+            }
+            if (b.name > a.name) {
+              return -1;
+            }
+            return 0;
+          });
+          break;
+        case "DESC":
+          sortedPokes = state.pokemons.sort(function (a, b) {
+            if (a.name > b.name) {
+              return -1;
+            }
+            if (b.name > a.name) {
+              return 1;
+            }
+            return 0;
+          });
+          break;
+        case "high":
+          sortedPokes = state.pokemons.sort(function (a, b) {
+            if (a.attack > b.attack) {
+              return 1;
+            }
+            if (b.attack > a.attack) {
+              return -1;
+            }
+            return 0;
+          });
+          break;
+        case "low":
+          sortedPokes = state.pokemons.sort(function (a, b) {
+            if (a.attack > b.attack) {
+              return -1;
+            }
+            if (b.attack > a.attack) {
+              return 1;
+            }
+            return 0;
+          });
+          break;
+        default:
+          return (sortedPokes = state.pokemons);
+      }
       return { ...state, pokemons: sortedPokes };
-    case "ORDER_BY_ATTACK":
-      let sortedAttack =
-        action.payload === "high"
-          ? state.pokemons.sort(function (a, b) {
-              if (a.attack > b.attack) {
-                return 1;
-              }
-              if (b.attack > a.attack) {
-                return -1;
-              }
-              return 0;
-            })
-          : state.pokemons.sort(function (a, b) {
-              if (a.attack > b.attack) {
-                return -1;
-              }
-              if (b.attack > a.attack) {
-                return 1;
-              }
-              return 0;
-            });
-      return { ...state, pokemons: sortedAttack };
+
     default:
       return state;
   }

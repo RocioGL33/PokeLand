@@ -23,7 +23,7 @@ export default function Detail() {
           <div>
             <label>Types:</label>
             {detail.types?.map((type) => (
-              <h3>{type}</h3>
+              <h3 key={type}>{type}</h3>
             ))}
           </div>
           <img

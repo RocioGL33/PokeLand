@@ -10,7 +10,7 @@ export default function Card({ id, name, img, types }) {
         <img src={img} alt="img not found" style={{ width: "120px" }} />
       </Link>
       {types?.map((type) => (
-        <h2>{type.name}</h2>
+        <h2 key={type.name}>{type.name}</h2>
       ))}
     </div>
   );

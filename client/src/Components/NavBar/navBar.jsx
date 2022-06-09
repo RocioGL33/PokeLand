@@ -25,6 +25,7 @@ export default function NavBar({ setCurrentPage, setOrder }) {
   useEffect(() => {
     dispatch(getTypes());
   }, []);
+
   function handleOnClick(e) {
     e.preventDefault();
     dispatch(getPokemons());

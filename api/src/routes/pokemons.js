@@ -19,27 +19,27 @@ router.get("/", async (req, res) => {
     return (
       Promise.all(allPokes)
 
-        .then((pokemons) => pokemons.map((pokemon) => pokemon.data))
-        .then((p) =>
-          p.map((data) => {
-            return {
-              id: data.id,
-              name: data.name,
-              img: data.sprites.other["official-artwork"].front_default,
-              types: data.types.map((t) => {
-                return {
-                  name: t.type.name,
-                };
-              }),
-              hp: data.stats[0].base_stat,
-              attack: data.stats[1].base_stat,
-              defense: data.stats[2].base_stat,
-              speed: data.stats[5].base_stat,
-              height: data.height,
-              weight: data.weight,
-            };
-          })
-        )
+      .then((pokemons) => pokemons.map((pokemon) => pokemon.data))
+      .then((p) =>
+        p.map((data) => {
+          return {
+            id: data.id,
+            name: data.name,
+            img: data.sprites.other["official-artwork"].front_default,
+            types: data.types.map((t) => {
+              return {
+                name: t.type.name,
+              };
+            }),
+            hp: data.stats[0].base_stat,
+            attack: data.stats[1].base_stat,
+            defense: data.stats[2].base_stat,
+            speed: data.stats[5].base_stat,
+            height: data.height,
+            weight: data.weight,
+          };
+        })
+      )
 
         // Busco en base de datos y concateno con API para devolver todo;
         .then(async (pokemons) =>
@@ -131,9 +131,8 @@ router.get("/:id", async (req, res) => {
       };
       res.status(200).send(pokeDb);
     } else {
-      var num = parseInt(id);
       var pokeIdApi = await axios
-        .get(`https://pokeapi.co/api/v2/pokemon/${num}`)
+        .get(`https://pokeapi.co/api/v2/pokemon/${id}`)
         .then((res) => res.data);
 
       var pokeApi = {
@@ -160,7 +159,7 @@ router.post("/", async (req, res) => {
   const { name, hp, attack, defense, speed, height, weight, types, img } =
     req.body;
 
-  console.log(types);
+  //console.log(types);
   try {
     var creatingPoke = await Pokemon.create({
       name,

@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import "./home.css";
 import Card from "../Card/card";
 import NavBar from "../NavBar/navBar";
-import SearchBar from "../SearchBar/searchBar";
 import Pagination from "../Pagination/pagination";
 import { getPokemons } from "../../Actions";
 
@@ -14,8 +13,9 @@ export default function Home() {
   const dispatch = useDispatch();
   const allPokemons = useSelector((state) => state.pokemons);
 
-  const [currentPage, setCurrentPage] = useState(1);
   //la pagina actual en la que empiezo el paginado
+  const [currentPage, setCurrentPage] = useState(1);
+  // el estado local que permite el ordebnamiento en la navBar
   const [order, setOrder] = useState("");
   const [attack, setAttack] = useState("");
   const [pokePerPage, setPokePerPage] = useState(12);
@@ -48,7 +48,15 @@ export default function Home() {
 
       <div className="grid-container">
         {currentPokes?.map((p) => {
-          return <Card id={p.id} name={p.name} img={p.img} types={p.types} />;
+          return (
+            <Card
+              key={p.id}
+              id={p.id}
+              name={p.name}
+              img={p.img}
+              types={p.types}
+            />
+          );
         })}
       </div>
     </>

@@ -23,7 +23,8 @@ export function getPokemonByName(name) {
       let json = await axios.get("http://localhost:3001/pokemons?name=" + name);
       return dispatch({ type: "GET_NAME_POKE", payload: json.data });
     } catch (e) {
-      console.log(e);
+      //console.log(e);
+      alert("Sorry, not pokemon found with that name");
     }
   };
 }
@@ -45,9 +46,6 @@ export function postPokemon(payload) {
     return json;
   };
 }
-export function filterPokeByAttack(payload) {
-  return { type: "ORDER_BY_ATTACK", payload };
-}
 
 export function filterPokeByType(payload) {
   //console.log(payload);
@@ -58,6 +56,6 @@ export function filterOrigin(payload) {
   return { type: "FILTER_BY_ORIGIN", payload };
 }
 
-export function orderByName(payload) {
-  return { type: "ORDER_BY_NAME", payload };
+export function orderBy(payload) {
+  return { type: "ORDER_BY", payload };
 }

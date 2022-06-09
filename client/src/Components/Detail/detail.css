@@ -1,4 +1,5 @@
 .container-detail-f {
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,9 +14,10 @@
     border-radius: 10px;
     border-style: dashed;
     width: 500px;
+    /*sombras en el detail*/
     box-shadow: 28px 26px 20px -11px rgba(0,0,0,0.44);
--webkit-box-shadow: 28px 26px 20px -11px rgba(0,0,0,0.44);
--moz-box-shadow: 28px 26px 20px -11px rgba(0,0,0,0.44);
+    -webkit-box-shadow: 28px 26px 20px -11px rgba(0,0,0,0.44);
+    -moz-box-shadow: 28px 26px 20px -11px rgba(0,0,0,0.44);
 }
 
 .container-button-detail {

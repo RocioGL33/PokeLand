@@ -250,7 +250,7 @@ export default function PokeCreated() {
           </select>
           {errors.types && <p>{errors.types}</p>}
           {input.types.map((type) => (
-            <div>
+            <div key={type.id}>
               <p>{type.name}</p>
               <button type="button" onClick={() => handleDelete(type)}>
                 Delete

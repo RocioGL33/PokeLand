@@ -160,7 +160,7 @@ export default function PokeCreated() {
           {errors.name && <p>{errors.name}</p>}
         </div>
         <div>
-          <label htmlFor="hp">Hp</label>
+          <label htmlFor="hp">Hp </label>
           <input
             type="number"
             value={input.hp}

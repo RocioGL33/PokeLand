@@ -3,7 +3,7 @@
     background-image: url('../../utils/backgoundPokes.png');
     background-repeat: no-repeat;
     background-size: cover;
-    position: relative;
+    /*position: relative;*/
     height: 100vh;
 }
 
@@ -45,7 +45,7 @@
  
 }
 
-/* efetto del boton JOIN*/
+/* efetto del boton enter*/
 .button:hover, .button:active {
     -webkit-transform: translate(0px,5px);
     -ms-transform: translate(0px,5px);
@@ -53,12 +53,3 @@
     border-bottom: 1px solid #2ecc71;
    }
 
-   /*posicion del texto de presentacion*/
-.footer {
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    color: #F8f8f8;
-    font-size: 13px;
-    top: 820px;
-}

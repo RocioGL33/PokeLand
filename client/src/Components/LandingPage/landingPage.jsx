@@ -13,11 +13,6 @@ export default function LandingPage() {
           <button className="button">Join!</button>
         </Link>
       </div>
-
-      <p className="footer">
-        This Individual Project was created by Rocio Garcia Lofrano for Henry
-        Full Stack Developer Academy, hope you like it.
-      </p>
     </div>
   );
 }

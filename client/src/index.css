@@ -5,10 +5,11 @@
 
 body {
   background-image: url('../../client/src/utils/homee.png');
-  background-size: auto;
-  background-attachment: fixed;
 
-  background-repeat: no-repeat;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /*position: relative;*/
+    height: 100vh;
   text-align: center;
 }
 
